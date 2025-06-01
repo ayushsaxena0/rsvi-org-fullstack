@@ -1,0 +1,45 @@
+<%- include('partials/header') -%>
+<div class="container">
+  <div class="card">
+    <img
+      src="<%= event.image %>"
+      class="card-img-top img-fluid"
+      style="
+        height: 300px;
+        object-fit: contain;
+        width: 100%;
+        background-color: #f0f0f0;
+      "
+      alt="<%= event.title %> Image"
+    />
+    <div class="card-body">
+      <h5 class="card-title"><%= event.title %></h5>
+      <div class="d-flex gap-3">
+        <% let startDate = new Date(event.startDate).toLocaleDateString('en-IN',
+        { day: '2-digit', month: 'long', year: 'numeric' }); let endDate = new
+        Date(event.endDate).toLocaleDateString('en-IN', { day: '2-digit', month:
+        'long', year: 'numeric' }); %>
+        <p class="card-text">
+          <small class="text-body-secondary"
+            >Starts from: <%= startDate %>
+          </small>
+        </p>
+        <p class="card-text">
+          <small class="text-body-secondary"
+            >Will end on: <%= endDate %>
+          </small>
+        </p>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <form
+          action="/events/deleteEvent/<%= event.id %>?_method=DELETE"
+          method="POST"
+          class="col-3"
+        >
+          <button class="btn btn-danger fa fa-trash" type="submit"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') -%>

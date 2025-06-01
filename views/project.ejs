@@ -1,0 +1,47 @@
+<%- include('partials/header') -%>
+<div class="container">
+  <div class="card">
+    <img
+      src="<%= project.image %>"
+      class="card-img-top img-fluid"
+      style="
+        height: 300px;
+        object-fit: contain;
+        width: 100%;
+        background-color: #f0f0f0;
+      "
+      alt="<%= project.title %> Image"
+    />
+    <div class="card-body">
+      <h5 class="card-title"><%= project.title %></h5>
+      <p class="card-text"><%= project.description %></p>
+      <div class="d-flex gap-3">
+        <% let startDate = new
+        Date(project.startDate).toLocaleDateString('en-IN', { day: '2-digit',
+        month: 'long', year: 'numeric' }); let endDate = new
+        Date(project.endDate).toLocaleDateString('en-IN', { day: '2-digit',
+        month: 'long', year: 'numeric' }); %>
+        <p class="card-text">
+          <small class="text-body-secondary"
+            >Started on: <%= startDate %>
+          </small>
+        </p>
+        <p class="card-text">
+          <small class="text-body-secondary"
+            >Will end on: <%= endDate %>
+          </small>
+        </p>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <form
+          action="/projects/deleteProject/<%= project.id %>?_method=DELETE"
+          method="POST"
+          class="col-3"
+        >
+          <button class="btn btn-danger fa fa-trash" type="submit"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') -%>

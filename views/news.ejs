@@ -1,0 +1,126 @@
+<%- include('partials/header') -%>
+<div class="container">
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-primary mb-3"
+    data-bs-toggle="modal"
+    data-bs-target="#staticBackdrop"
+  >
+    Add News
+  </button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Add News</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form
+            id="form"
+            action="/news/createSingleNews"
+            enctype="multipart/form-data"
+            method="POST"
+          >
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" name="title" />
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="imgUpload" class="form-label">Image</label>
+              <input
+                type="file"
+                class="form-control"
+                id="imageUpload"
+                name="file"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="articleLink" class="form-label">Article Link</label>
+              <input
+                type="text"
+                class="form-control"
+                id="articleLink"
+                name="articleLink"
+              />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            form="form"
+            value="Upload"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- News Grid -->
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <% news.forEach((el) => { %>
+    <div class="col">
+      <a class="text-decoration-none text-reset" href="/news/<%= el._id%>">
+        <div class="card">
+          <img
+            src="<%= el.image %>"
+            class="card-img-top img-fluid"
+            style="
+              height: 200px;
+              object-fit: contain;
+              width: 100%;
+              background-color: #f0f0f0;
+            "
+            alt="<%= el.title %> Image"
+          />
+          <div class="card-body">
+            <h5 class="card-title"><%= el.title %></h5>
+            <a
+              href="<%= el.articleLink %>"
+              target="_blank"
+              class="btn btn-primary"
+              >Go to Article</a
+            >
+          </div>
+        </div>
+      </a>
+    </div>
+    <% }) %>
+  </div>
+</div>
+<%- include('partials/footer') -%>

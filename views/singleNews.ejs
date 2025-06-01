@@ -1,0 +1,36 @@
+<%- include('partials/header') -%>
+<div class="container">
+  <div class="card">
+    <img
+      src="<%= news.image %>"
+      class="card-img-top img-fluid"
+      style="
+        height: 300px;
+        object-fit: contain;
+        width: 100%;
+        background-color: #f0f0f0;
+      "
+      alt="<%= news.title %> Image"
+    />
+    <div class="card-body">
+      <h5 class="card-title"><%= news.title %></h5>
+      <p class="card-text"><%= news.description %></p>
+      <div class="d-flex align-items-center gap-3">
+        <a
+          href="<%= news.articleLink %>"
+          target="_blank"
+          class="btn btn-primary"
+          >Go to Article</a
+        >
+        <form
+          action="/news/deleteNews/<%= news.id %>?_method=DELETE"
+          method="POST"
+          class="col-3"
+        >
+          <button class="btn btn-danger fa fa-trash" type="submit"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') -%>
