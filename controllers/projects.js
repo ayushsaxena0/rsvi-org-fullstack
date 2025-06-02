@@ -2,7 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Project = require("../models/Project");
 
 module.exports = {
-  getProjects: async (req, res) => {
+  getProjects: async (req, res, next) => {
     try {
       const projects = await Project.find().sort({ createdAt: "desc" }).lean();
       res.render("projects", { projects: projects });
@@ -10,7 +10,7 @@ module.exports = {
       console.log(err);
     }
   },
-  getProject: async (req, res) => {
+  getProject: async (req, res, next) => {
     try {
       const project = await Project.findById(req.params.id);
       res.render("project", { project: project });
@@ -18,7 +18,7 @@ module.exports = {
       console.log(err);
     }
   },
-  createProject: async (req, res) => {
+  createProject: async (req, res, next) => {
     try {
       // Upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
@@ -37,7 +37,7 @@ module.exports = {
       console.log(err);
     }
   },
-  deleteProject: async (req, res) => {
+  deleteProject: async (req, res, next) => {
     try {
       // Find post by id
       let project = await Project.findById({ _id: req.params.id });

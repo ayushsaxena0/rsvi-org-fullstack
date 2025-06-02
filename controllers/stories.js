@@ -2,7 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Story = require("../models/Story");
 
 module.exports = {
-  getStories: async (req, res) => {
+  getStories: async (req, res, next) => {
     try {
       const stories = await Story.find().sort({ createdAt: "desc" }).lean();
       res.render("stories", { stories: stories });
@@ -10,7 +10,7 @@ module.exports = {
       console.log(err);
     }
   },
-  getStory: async (req, res) => {
+  getStory: async (req, res, next) => {
     try {
       const story = await Story.findById(req.params.id);
       res.render("story", { story: story });
@@ -18,7 +18,7 @@ module.exports = {
       console.log(err);
     }
   },
-  createStory: async (req, res) => {
+  createStory: async (req, res, next) => {
     try {
       // Upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
@@ -35,7 +35,7 @@ module.exports = {
       console.log(err);
     }
   },
-  deleteStory: async (req, res) => {
+  deleteStory: async (req, res, next) => {
     try {
       // Find post by id
       let story = await Story.findById({ _id: req.params.id });

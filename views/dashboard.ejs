@@ -1,10 +1,23 @@
 <%- include('partials/header') -%>
 <div class="container">
-  <h1 class="text-center">Welcome to the Admin Portal</h1>
+  <h1 class="text-center mb-5">Welcome to the Admin Portal</h1>
+  <div class="row row-cols-1 row-cols-md-4 g-3">
+    <% for(const item in obj){ %>
+    <div class="col">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-text"><%= item %></h5>
+          <h3 class="card-title"><%= obj[item] %></h3>
+        </div>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
   <a
     name="logout"
     id="logout"
-    class="btn btn-primary"
+    class="btn btn-primary mt-5"
     href="/admin/logout"
     role="button"
     >Logout</a

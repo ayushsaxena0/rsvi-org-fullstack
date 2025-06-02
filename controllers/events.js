@@ -2,7 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Event = require("../models/Event");
 
 module.exports = {
-  getEvents: async (req, res) => {
+  getEvents: async (req, res, next) => {
     try {
       const events = await Event.find().sort({ createdAt: "desc" }).lean();
       res.render("events", { events: events });
@@ -10,7 +10,7 @@ module.exports = {
       console.log(err);
     }
   },
-  getEvent: async (req, res) => {
+  getEvent: async (req, res, next) => {
     try {
       const event = await Event.findById(req.params.id);
       res.render("event", { event: event });
@@ -18,7 +18,7 @@ module.exports = {
       console.log(err);
     }
   },
-  createEvent: async (req, res) => {
+  createEvent: async (req, res, next) => {
     try {
       // Upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
@@ -36,7 +36,7 @@ module.exports = {
       console.log(err);
     }
   },
-  deleteEvent: async (req, res) => {
+  deleteEvent: async (req, res, next) => {
     try {
       // Find post by id
       let event = await Event.findById({ _id: req.params.id });
